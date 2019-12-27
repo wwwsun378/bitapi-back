@@ -2,6 +2,7 @@ package com.bitservice.commonConfig.aspect;
 
 import com.alibaba.fastjson.JSONException;
 import com.bitservice.common.web.RestResult;
+import com.bitservice.core.exception.BaseException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -44,7 +45,10 @@ public class ControllerExceptionAspect {
 			msg = "json格式化出现异常：" + e.getMessage();
 		} else if (e instanceof IOException) {
 			msg = "io异常：" + e.getMessage();
-		} else {
+		} else if (e instanceof BaseException) {
+			//自定义异常信息
+			msg = e.getMessage();
+		} else{
 			msg = "服务器异常:" + e.getMessage();
 		}
 		return RestResult.error(null, msg);
