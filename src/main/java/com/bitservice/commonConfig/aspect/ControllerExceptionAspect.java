@@ -20,7 +20,7 @@ import java.io.IOException;
 public class ControllerExceptionAspect {
 	private static Logger log = LoggerFactory.getLogger(ControllerExceptionAspect.class);
 
-	@Pointcut(value = "execution(public * com.bitservice.*.*Controller.*(..))")
+	@Pointcut(value = "execution(public * com.bitservice..*Controller.*(..))")
 	public void controllerMethod() {
 	}
 
@@ -39,6 +39,7 @@ public class ControllerExceptionAspect {
 	}
 
 	private RestResult handlerException(ProceedingJoinPoint pjp, Throwable e) {
+		log.error("出现异常！{}>>>>{}",pjp.getSignature(),e.getMessage());
 		String msg;
 		if (e instanceof JSONException) {
 			msg = "json格式化出现异常：" + e.getMessage();
