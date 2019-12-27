@@ -1,0 +1,12 @@
+/target/
+/.settings/
+/.svn/
+/bin/
+/logs/
+/.idea/
+/.externalToolBuilders/
+/.idea/
+.myumldata
+.classpath
+.project
+*.iml
