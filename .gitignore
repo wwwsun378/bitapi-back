@@ -10,4 +10,4 @@
 .classpath
 .project
 *.iml
-.application-*.properties
+application-*.properties
