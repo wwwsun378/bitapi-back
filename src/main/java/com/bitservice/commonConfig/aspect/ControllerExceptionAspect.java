@@ -29,14 +29,19 @@ public class ControllerExceptionAspect {
 
 	@Around("controllerMethod()")
 	public Object handlerControllerMethod(ProceedingJoinPoint pjp) {
+		boolean canLog = !isFileRelationController(pjp.getSignature().toLongString());
 		String method = pjp.getSignature().toShortString();
 		log.info("进入方法：{}", pjp.getSignature());
-		log.info("参数：{}", Arrays.toString(pjp.getArgs()));
+		if (canLog) {
+			log.info("参数：{}", Arrays.toString(pjp.getArgs()));
+		}
 		long startTime = System.currentTimeMillis();
 		Object result;
 		try {
 			result = pjp.proceed();
-			log.info("方法：{}处理结果：{}", method, JSONObject.toJSONString(result));
+			if (canLog) {
+				log.info("方法：{}处理结果：{}", method, JSONObject.toJSONString(result));
+			}
 			log.info("方法：{}花费时间:{}", method, (System.currentTimeMillis() - startTime));
 			log.info("**********************************************************************");
 		} catch (Throwable e) {
@@ -55,9 +60,19 @@ public class ControllerExceptionAspect {
 		} else if (e instanceof BaseException) {
 			//自定义异常信息
 			msg = e.getMessage();
-		} else{
+		} else {
 			msg = "服务器异常:" + e.getMessage();
 		}
 		return RestResult.error(null, msg);
+	}
+
+	/**
+	 * 校验是否是文件上传controller，防止将参数中的base64打印出来
+	 *
+	 * @param signature 方法签名
+	 * @return 检测结果
+	 */
+	private boolean isFileRelationController(String signature) {
+		return signature.contains("com.bitservice.uploadfile.controller");
 	}
 }
