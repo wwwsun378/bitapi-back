@@ -60,8 +60,10 @@ public class ControllerExceptionAspect {
 		} else if (e instanceof BaseException) {
 			//自定义异常信息
 			msg = e.getMessage();
+		} else if (e instanceof IllegalArgumentException) {
+			msg = "参数有误：" + e.getMessage();
 		} else {
-			msg = "服务器异常:" + e.getMessage();
+			msg = "网络异常";
 		}
 		return RestResult.error(null, msg);
 	}
