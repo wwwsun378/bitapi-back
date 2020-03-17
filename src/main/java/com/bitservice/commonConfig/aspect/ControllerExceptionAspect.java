@@ -33,6 +33,7 @@ public class ControllerExceptionAspect {
 	@Around("controllerMethod()")
 	public Object handlerControllerMethod(ProceedingJoinPoint pjp) {
 		boolean canLog = !isFileRelationController(pjp.getSignature().toLongString());
+		boolean notGrid = !isGridController(pjp.getSignature().toLongString());
 		String method = pjp.getSignature().toShortString();
 		log.info("进入方法：{}", pjp.getSignature());
 		if (canLog) {
@@ -42,7 +43,7 @@ public class ControllerExceptionAspect {
 		Object result;
 		try {
 			result = pjp.proceed();
-			if (canLog) {
+			if (canLog && notGrid) {
 				log.info("方法：{}处理结果：{}", method, JSONObject.toJSONString(result));
 			}
 			log.info("方法：{}花费时间:{}", method, (System.currentTimeMillis() - startTime));
@@ -81,5 +82,14 @@ public class ControllerExceptionAspect {
 	 */
 	private boolean isFileRelationController(String signature) {
 		return signature.contains("com.bitservice.uploadfile.controller");
+	}
+	/**
+	 * 校验是否是文件上传controller，防止将参数中的base64打印出来
+	 *
+	 * @param signature 方法签名
+	 * @return 检测结果
+	 */
+	private boolean isGridController(String signature) {
+		return signature.contains("com.bitservice.bitsgrid.controller");
 	}
 }
