@@ -55,7 +55,7 @@ public class ControllerExceptionAspect {
 	}
 
 	private RestResult handlerException(ProceedingJoinPoint pjp, Throwable e) {
-		log.error("出现异常:", e);
+		log.error(">>>>出现异常:{}",e.getMessage(), e);
 		String msg;
 		if (e instanceof JSONException) {
 			msg = "json格式化出现异常：" + e.getMessage();
