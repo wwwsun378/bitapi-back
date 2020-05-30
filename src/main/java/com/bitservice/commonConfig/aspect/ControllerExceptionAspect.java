@@ -44,7 +44,12 @@ public class ControllerExceptionAspect {
 		try {
 			result = pjp.proceed();
 			if (canLog && notGrid) {
-				log.info("方法：{}处理结果：{}", method, JSONObject.toJSONString(result));
+				String retJSON = JSONObject.toJSONString(result);
+				if(retJSON.length() > 10000){
+					log.info("方法：{}处理结果：{}", method,retJSON.substring(0,9999)+"... 太长了后面都省略了");
+				}else{
+					log.info("方法：{}处理结果：{}", method,retJSON);
+				}
 			}
 			log.info("方法：{}花费时间:{}", method, (System.currentTimeMillis() - startTime));
 			log.info("**********************************************************************");
