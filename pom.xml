@@ -60,12 +60,12 @@
 		<dependency>
 			<groupId>com.bitservice</groupId>
 			<artifactId>ii</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.bitservice</groupId>
 			<artifactId>uploadfile-ii</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 		</dependency>
 
 <!--		<dependency>
@@ -88,7 +88,7 @@
 		<dependency>
 			<groupId>com.bitservice</groupId>
 			<artifactId>pojo-ii</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.alibaba</groupId>

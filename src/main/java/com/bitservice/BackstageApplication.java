@@ -10,7 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableDiscoveryClient
 @SpringBootApplication
 @EnableFeignClients
-@ServletComponentScan
+@ServletComponentScan//该注解能让配置的druid监控页面生效
 public class BackstageApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BackstageApplication.class, args);
