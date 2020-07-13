@@ -20,7 +20,7 @@
     <!-- 控制台输出 -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+            <level>${logLevel}</level>
         </filter>
         <!-- 日志输出编码 -->
         <encoder>
@@ -30,7 +30,7 @@
     </appender>
      <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+            <level>${logLevel}</level>
         </filter>
         <File>${MY_LOG_PATH}/${myFileName}-info.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
@@ -76,9 +76,9 @@
     </appender>
 
     <!-- 日志输出级别 -->
-    <root level="INFO">
+    <root level="${logLevel}">
         <appender-ref ref="console"/>
         <appender-ref ref="logstash"/>
-         <appender-ref ref="INFO_FILE"/>
+        <appender-ref ref="INFO_FILE"/>
     </root>
 </configuration>
