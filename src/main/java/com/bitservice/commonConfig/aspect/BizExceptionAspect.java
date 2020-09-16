@@ -20,15 +20,15 @@ import java.io.StringWriter;
 import java.util.Arrays;
 
 /**
- * @Author hrong
+ * @Author wfq
  **/
 @Aspect
 @Order(1)
 @Component
-public class ControllerExceptionAspect {
-	private static Logger log = LoggerFactory.getLogger(ControllerExceptionAspect.class);
+public class BizExceptionAspect {
+	private static Logger log = LoggerFactory.getLogger(BizExceptionAspect.class);
 
-	@Pointcut(value = "execution(public * com.bitservice..*Controller.*(..))")
+	@Pointcut(value = "execution(* com.bitservice..*ServiceImpl.*(..))")
 	public void controllerMethod() {
 	}
 
