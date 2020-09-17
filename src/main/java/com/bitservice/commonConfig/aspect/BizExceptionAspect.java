@@ -23,7 +23,7 @@ import java.util.Arrays;
  * @Author wfq
  **/
 @Aspect
-@Order(1)
+@Order(2)
 @Component
 public class BizExceptionAspect {
 	private static Logger log = LoggerFactory.getLogger(BizExceptionAspect.class);
