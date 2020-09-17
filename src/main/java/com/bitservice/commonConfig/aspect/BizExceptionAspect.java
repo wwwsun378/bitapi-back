@@ -20,20 +20,20 @@ import java.io.StringWriter;
 import java.util.Arrays;
 
 /**
- * @Author hrong
+ * @Author wfq
  **/
 @Aspect
-@Order(1)
+@Order(2)
 @Component
-public class ControllerExceptionAspect {
-	private static Logger log = LoggerFactory.getLogger(ControllerExceptionAspect.class);
+public class BizExceptionAspect {
+	private static Logger log = LoggerFactory.getLogger(BizExceptionAspect.class);
 
-	@Pointcut(value = "execution(public * com.bitservice..*Controller.*(..))")
-	public void controllerMethod() {
+	@Pointcut(value = "execution(* com.bitservice..*Service*.*(..))")
+	public void bizMethod() {
 	}
 
-	@Around("controllerMethod()")
-	public Object handlerControllerMethod(ProceedingJoinPoint pjp) {
+	@Around("bizMethod()")
+	public Object handlerBizMethod(ProceedingJoinPoint pjp) {
 		boolean canLog = !isFileRelationController(pjp.getSignature().toLongString());
 		boolean notGrid = !isGridController(pjp.getSignature().toLongString());
 		String method = pjp.getSignature().toShortString();
@@ -61,24 +61,9 @@ public class ControllerExceptionAspect {
 		return result;
 	}
 
-	private RestResult handlerException(ProceedingJoinPoint pjp, Throwable e) {
+	private Throwable handlerException(ProceedingJoinPoint pjp, Throwable e) {
 		log.error(">>>>出现异常:{}",getExceptionStackTrace(e), e);
-		String msg;
-		if (e instanceof JSONException) {
-			msg = "json格式化出现异常：" + e.getMessage();
-		} else if (e instanceof IOException) {
-			msg = "io异常：" + e.getMessage();
-		} else if (e instanceof BaseException) {
-			//自定义异常信息
-			msg = e.getMessage();
-		}else if(e instanceof DataAccessException){
-			msg = "服务器异常！DB_ERROR";
-		} else if (e instanceof IllegalArgumentException) {
-			msg = "参数有误：" + e.getMessage();
-		} else {
-			msg = "服务器异常:" + e.getMessage();
-		}
-		return RestResult.error(null, msg);
+		return e;
 	}
 
 	/**
