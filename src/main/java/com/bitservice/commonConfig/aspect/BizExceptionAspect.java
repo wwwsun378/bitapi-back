@@ -28,12 +28,12 @@ import java.util.Arrays;
 public class BizExceptionAspect {
 	private static Logger log = LoggerFactory.getLogger(BizExceptionAspect.class);
 
-	@Pointcut(value = "execution(* com.bitservice..*ServiceImpl.*(..))")
-	public void controllerMethod() {
+	@Pointcut(value = "execution(* com.bitservice..*Service*.*(..))")
+	public void bizMethod() {
 	}
 
-	@Around("controllerMethod()")
-	public Object handlerControllerMethod(ProceedingJoinPoint pjp) {
+	@Around("bizMethod()")
+	public Object handlerBizMethod(ProceedingJoinPoint pjp) {
 		boolean canLog = !isFileRelationController(pjp.getSignature().toLongString());
 		boolean notGrid = !isGridController(pjp.getSignature().toLongString());
 		String method = pjp.getSignature().toShortString();
