@@ -1,8 +1,6 @@
 package com.bitservice.commonConfig.aspect;
 
-import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
-import com.bitservice.common.web.RestResult;
 import com.bitservice.core.exception.BaseException;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -11,7 +9,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -63,7 +60,8 @@ public class BizExceptionAspect {
 
 	private Throwable handlerException(ProceedingJoinPoint pjp, Throwable e) {
 		log.error(">>>>出现异常:{}",getExceptionStackTrace(e), e);
-		return e;
+		throw new BaseException(e.getMessage());
+		// return e;
 	}
 
 	/**
