@@ -22,6 +22,10 @@
 	<dependencies>
 		<!--基础依赖 -->
 		<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+		<dependency>
 			<groupId>io.github.openfeign.form</groupId>
 			<artifactId>feign-form</artifactId>
 			<version>3.2.2</version>
