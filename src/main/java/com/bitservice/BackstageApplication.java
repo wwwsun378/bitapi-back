@@ -14,7 +14,7 @@ import com.alibaba.nacos.spring.context.annotation.config.EnableNacosConfig;
 @SpringBootApplication
 @EnableFeignClients
 @ServletComponentScan//该注解能让配置的druid监控页面生效
-@EnableNacosConfig(globalProperties = @NacosProperties(serverAddr = "${spring.cloud.nacos.discovery.server-addr}"))
+@EnableNacosConfig(globalProperties = @NacosProperties(serverAddr = "${spring.cloud.nacos.discovery.server-addr}",namespace="${spring.profiles.active}"))
 public class BackstageApplication {
 
 	public static void main(String[] args) {
