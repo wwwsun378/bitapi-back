@@ -78,7 +78,52 @@ public class ControllerExceptionAspect {
 		} else {
 			msg = "服务器异常:" + e.getMessage();
 		}
+		msg = getRuleMsg(msg);
 		return RestResult.error(null, msg);
+	}
+
+
+	/**
+	 *
+	 * 1)如果报异常含uuid+登记系统的联系张凯，uuid+税务系统的联系赵友嘉，其他含uuid的联系李祥
+	 * 2)连接超时的连接王富强
+	 * 3)服务器异常DB——error的联系张永胜
+	 * 4)参数异常 联系 王小天
+	 **/
+	private String getRuleMsg(String msg){
+		if(msg == null){
+			return null;
+		}
+		//region 1)如果报异常含uuid+登记系统的联系张凯，uuid+税务系统的联系赵友嘉，其他含uuid的联系李祥
+		if(msg.indexOf("uuid")!=-1||msg.indexOf("UUID")!=-1){
+			if(msg.indexOf("登记")!=-1){
+				return msg+"  ZK";
+			}
+			if(msg.indexOf("税务")!=-1){
+				return msg+"  ZYJ";
+			}
+			return msg + "  LX";
+		}
+		//endregion
+
+		//region 2)连接超时的连接王富强
+		if(msg.indexOf("connect")!=-1 || msg.indexOf("CONNECT")!=-1){
+			return msg + "  WFQ";
+		}
+		//endregion
+
+		//region 3)服务器异常DB——error的联系张永胜
+		if(msg.indexOf("DB_ERROR")!=-1 || msg.indexOf("db_error")!=-1){
+			return msg + "  ZYS";
+		}
+		//endregion
+
+		//region 3)参数异常 联系 王小天
+		if(msg.indexOf("参数有误")!=-1){
+			return msg + "  WXT";
+		}
+		//endregion
+		return msg;
 	}
 
 	/**
